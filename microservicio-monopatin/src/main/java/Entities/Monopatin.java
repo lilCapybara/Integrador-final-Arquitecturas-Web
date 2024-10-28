@@ -10,10 +10,6 @@ int horasDeUso;
 
 int Kilometraje;
 
-Parada paradaActual;
-
-Parada paradaDestino;
-
 Viaje viajeActual;
 
 Boolean pausa;
