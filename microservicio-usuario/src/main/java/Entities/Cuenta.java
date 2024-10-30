@@ -1,8 +1,12 @@
 package Entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 @Entity
 public class Cuenta {
-    @id
+    @Id
     private int id;
 
-    int saldo;
+    private int saldo;
 }

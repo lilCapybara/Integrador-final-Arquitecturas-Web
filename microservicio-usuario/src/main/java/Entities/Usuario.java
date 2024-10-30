@@ -1,28 +1,36 @@
 package Entities;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Usuario {
-    @id
-    int idUsuario;
 
-    String nickname;
+    @Id
+    private int idUsuario;
 
-    String nombre;
+    private String nickname;
 
-    String apellido;
+    private String nombre;
 
-    int nroCelular;
+    private String apellido;
 
-    String email;
+    private int nroCelular;
 
-    Date fechaDeAlta;
+    private String email;
 
-    Cuenta cuentaMP;
+    private Date fechaDeAlta;
 
-    Boolean cuentaActiva;
+    @ManyToOne
+    private  Cuenta cuentaMP;
 
-    Monopatin monopatinEnUso;
+    private Boolean cuentaActiva;
+
+    private Boolean pausaExtensa;
+
+    @OneToOne
+    private Monopatin monopatinEnUso;
 
 }

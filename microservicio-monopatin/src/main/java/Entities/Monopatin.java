@@ -1,9 +1,11 @@
 package Entities;
 
+import jakarta.persistence.*;
+
 @Entity
 public class Monopatin {
 
-@id
+@Id
 int idMonopatin;
 
 int horasDeUso;
@@ -16,5 +18,7 @@ Boolean pausa;
 
 int contadorPausa;
 
+@OneToOne
+GPS gps;
 
 }
