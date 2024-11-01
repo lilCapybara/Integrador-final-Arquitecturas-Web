@@ -46,6 +46,14 @@ public class GestorController {
         return ResponseEntity.noContent().build();
     }
 
+    public ResponseEntity<Void>iniciarMantenimientoMonopatin(int idMonopatin){
+        gestorService.iniciarMantenimientoMonopatin(idMonopatin);
+    }
+
+    public ResponseEntity<Void>finalizarMantenimientoMonopatin(int idMonopatin){
+        gestorService.finalizarMantenimientoMonopatin(idMonopatin);
+    }
+
     List<MonopatinDTO> getMonopatinesOperativosYMantenimiento(){
     }
 }
