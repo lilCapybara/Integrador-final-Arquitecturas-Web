@@ -22,6 +22,8 @@
         <module>microservicio-parada</module>
         <module>microservicio-usuario</module>
         <module>microservicio-viaje</module>
+        <module>config-service</module>
+        <module>eureka-service</module>
     </modules>
 
     <url/>
