@@ -24,4 +24,11 @@ public interface GestorMonopatinRepository extends JpaRepository<Monopatin, Inte
             "FROM Gestor g JOIN g.flotaDeMonopatines m")
     public List<Object[]> getMonopatinesOperativosYMantenimiento();
 
+    @Query("SELECT m " +
+            "FROM Monopatin m JOIN m.viajeActual v " +
+            "WHERE YEAR(v.fechaInicio) = :anio " +
+            "GROUP BY m " +
+            "HAVING COUNT(v) > :cantViajes")
+    public List<Object[]> getMonopatinesConMasDeXViajesXAnio(@Param ("cantViajes") int cantViajes, @Param("anio") int anio);
+
 }

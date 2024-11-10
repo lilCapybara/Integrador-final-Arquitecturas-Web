@@ -37,7 +37,7 @@ public class GestorController {
         return ResponseEntity.ok(nuevaParada);
     }
 
-    @PostMapping("quitarParada/{idParada}")
+    @DeleteMapping("quitarParada/{idParada}")
     public ResponseEntity<Void> quitarParada(@PathVariable int idParada) {
         gestorService.borrarParada(idParada);
         return ResponseEntity.noContent().build();
@@ -49,13 +49,13 @@ public class GestorController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/iniciarMantenimientoMonopatin/{idMonopatin}")
+    @PutMapping("/iniciarMantenimientoMonopatin/{idMonopatin}")
     public ResponseEntity<Void>iniciarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.iniciarMantenimientoMonopatin(idMonopatin);
         return ResponseEntity.status(200).build();
     }
 
-    @PostMapping("/finalizarMantenimientoMonopatin/{idMonopatin}")
+    @PutMapping("/finalizarMantenimientoMonopatin/{idMonopatin}")
     public ResponseEntity<Void>finalizarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.finalizarMantenimientoMonopatin(idMonopatin);
         return ResponseEntity.status(200).build();
@@ -66,4 +66,12 @@ public class GestorController {
         List<Object[]> reporte = gestorService.getMonopatinesOperativosYMantenimiento();
         return ResponseEntity.ok(reporte);
     }
+
+    @GetMapping("/xViajesXAnio/{cantViajes}/{anio}")
+    public ResponseEntity<List<Object[]>> getMonopatinesConMasDeXViajesXAnio(@PathVariable int cantViajes, @PathVariable int anio){
+        List<Object[]> reporte = gestorService.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
+        return ResponseEntity.ok(reporte);
+    }
+
+
 }

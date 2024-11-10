@@ -60,4 +60,9 @@ public class GestorService {
     public List<Object[]> getMonopatinesOperativosYMantenimiento() {
         return gestorMonopatinRepository.getMonopatinesOperativosYMantenimiento();
     }
+
+    @Transactional
+    public List<Object[]> getMonopatinesConMasDeXViajesXAnio(int cantViajes, int anio) {
+        return gestorMonopatinRepository.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
+    }
 }
