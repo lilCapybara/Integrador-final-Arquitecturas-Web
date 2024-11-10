@@ -6,6 +6,7 @@ import Entities.Viaje;
 import Repositories.GestorMantenimientoRepository;
 import Repositories.GestorMonopatinRepository;
 import Repositories.GestorParadaRepository;
+import Repositories.GestorUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,8 @@ public class GestorService {
     private GestorParadaRepository gestorParadaRepository;
     @Autowired
     private GestorMantenimientoRepository gestorMantenimientoRepository;
+    @Autowired
+    private GestorUsuarioRepository gestorUsuarioRepository;
 
     @Transactional
     public Monopatin insertarMonopatin(Monopatin monopatin) {
@@ -77,5 +80,9 @@ public class GestorService {
 
     public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
        Viaje.setTarifaPausaExtensa(nuevaTarifa);
+    }
+
+    public void anularUsuario(int idUsuario) {
+        gestorUsuarioRepository.anularUsuario(idUsuario);
     }
 }

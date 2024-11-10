@@ -53,13 +53,13 @@ public class GestorController {
     @PutMapping("/monopatin/iniciarMantenimientoMonopatin/{idMonopatin}")
     public ResponseEntity<Void>iniciarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.iniciarMantenimientoMonopatin(idMonopatin);
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.status(201).build();
     }
 
     @PutMapping("/monopatin/finalizarMantenimientoMonopatin/{idMonopatin}")
     public ResponseEntity<Void>finalizarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.finalizarMantenimientoMonopatin(idMonopatin);
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.status(201).build();
     }
 
     @GetMapping("/monopatin/getMonopatinesOperativosYMantenimiento")
@@ -83,12 +83,18 @@ public class GestorController {
     @PutMapping("/tarifas/ajustarTarifaViaje/{nuevaTarifa}/{fecha}")
     public ResponseEntity<Void> ajustarTarifaViaje(@PathVariable int nuevaTarifa,@PathVariable Date fecha){
         gestorService.ajustarTarifaViaje(nuevaTarifa,fecha);
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.status(201).build();
     }
 
     @PutMapping("/tarifas/ajustarTarifaPausa/{nuevaTarifa}/{fecha}")
     public ResponseEntity<Void> ajustarTarifaPausa(@PathVariable int nuevaTarifa,@PathVariable Date fecha){
         gestorService.ajustarTarifaPausa(nuevaTarifa,fecha);
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.status(201).build();
+    }
+
+    @PutMapping("/usuarios/anularUsuario/{idUsuario}")
+    public ResponseEntity<Void> anularUsuario(@PathVariable int idUsuario){
+        gestorService.anularUsuario(idUsuario);
+        return ResponseEntity.status(201).build();
     }
 }
