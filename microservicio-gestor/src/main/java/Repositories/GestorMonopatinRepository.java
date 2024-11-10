@@ -31,4 +31,10 @@ public interface GestorMonopatinRepository extends JpaRepository<Monopatin, Inte
             "HAVING COUNT(v) > :cantViajes")
     public List<Object[]> getMonopatinesConMasDeXViajesXAnio(@Param ("cantViajes") int cantViajes, @Param("anio") int anio);
 
+    @Query("SELECT m, " +
+            "SUM(m.kilometraje) AS kilometraje, " +
+            "SUM(CASE WHEN :incluirPausas = true THEN m.horasDeUso + m.contadorPausa ELSE m.horasDeUso END) AS horasDeUso " +
+            "FROM Monopatin m " +
+            "GROUP BY m.idMonopatin")
+    public List<Object[]> getReporteDeUso(@Param ("incluirPausas") boolean incluirPausas);
 }

@@ -10,7 +10,7 @@ int idMonopatin;
 
 int horasDeUso;
 
-int Kilometraje;
+int kilometraje;
 
 String estado;  //Puede ser "Operativo" o "En mantenimiento"
 

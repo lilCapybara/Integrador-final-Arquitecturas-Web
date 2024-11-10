@@ -65,4 +65,8 @@ public class GestorService {
     public List<Object[]> getMonopatinesConMasDeXViajesXAnio(int cantViajes, int anio) {
         return gestorMonopatinRepository.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
     }
+
+    public List<Object[]> getReporteDeUso(boolean incluirPausas) {
+        return gestorMonopatinRepository.getReporteDeUso(incluirPausas);
+    }
 }
