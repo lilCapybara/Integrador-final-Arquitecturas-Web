@@ -5,9 +5,12 @@ import Entities.Parada;
 import Repositories.GestorMantenimientoRepository;
 import Repositories.GestorMonopatinRepository;
 import Repositories.GestorParadaRepository;
+import dtos.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class GestorService {
@@ -51,5 +54,10 @@ public class GestorService {
     @Transactional
     public void finalizarMantenimientoMonopatin(int idMonopatin) {
         gestorMantenimientoRepository.finalizarMantenimiento(idMonopatin,"En circulacion");
+    }
+
+    @Transactional
+    public List<Object[]> getMonopatinesOperativosYMantenimiento() {
+        return gestorMonopatinRepository.getMonopatinesOperativosYMantenimiento();
     }
 }

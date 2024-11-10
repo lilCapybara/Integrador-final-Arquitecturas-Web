@@ -4,9 +4,12 @@ import Entities.Gestor;
 import Entities.Monopatin;
 import Entities.Parada;
 import Services.GestorService;
+import dtos.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/microservicioGestor/gestor")
@@ -46,14 +49,21 @@ public class GestorController {
         return ResponseEntity.noContent().build();
     }
 
-    public ResponseEntity<Void>iniciarMantenimientoMonopatin(int idMonopatin){
+    @PostMapping("/iniciarMantenimientoMonopatin/{idMonopatin}")
+    public ResponseEntity<Void>iniciarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.iniciarMantenimientoMonopatin(idMonopatin);
+        return ResponseEntity.status(200).build();
     }
 
-    public ResponseEntity<Void>finalizarMantenimientoMonopatin(int idMonopatin){
+    @PostMapping("/finalizarMantenimientoMonopatin/{idMonopatin}")
+    public ResponseEntity<Void>finalizarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.finalizarMantenimientoMonopatin(idMonopatin);
+        return ResponseEntity.status(200).build();
     }
 
-    List<MonopatinDTO> getMonopatinesOperativosYMantenimiento(){
+    @GetMapping("/getMonopatinesOperativosYMantenimiento")
+    public ResponseEntity<List<Object[]>> getMonopatinesOperativosYMantenimiento(){
+        List<Object[]> reporte = gestorService.getMonopatinesOperativosYMantenimiento();
+        return ResponseEntity.ok(reporte);
     }
 }
