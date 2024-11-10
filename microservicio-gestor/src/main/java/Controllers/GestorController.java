@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -77,5 +78,17 @@ public class GestorController {
     public ResponseEntity<List<Object[]>> getReporteDeUso(@PathVariable boolean incluirPausas){
         List<Object[]> reporte = gestorService.getReporteDeUso(incluirPausas);
         return ResponseEntity.ok(reporte);
+    }
+
+    @PutMapping("/tarifas/ajustarTarifaViaje/{nuevaTarifa}/{fecha}")
+    public ResponseEntity<Void> ajustarTarifaViaje(@PathVariable int nuevaTarifa,@PathVariable Date fecha){
+        gestorService.ajustarTarifaViaje(nuevaTarifa,fecha);
+        return ResponseEntity.status(200).build();
+    }
+
+    @PutMapping("/tarifas/ajustarTarifaPausa/{nuevaTarifa}/{fecha}")
+    public ResponseEntity<Void> ajustarTarifaPausa(@PathVariable int nuevaTarifa,@PathVariable Date fecha){
+        gestorService.ajustarTarifaPausa(nuevaTarifa,fecha);
+        return ResponseEntity.status(200).build();
     }
 }

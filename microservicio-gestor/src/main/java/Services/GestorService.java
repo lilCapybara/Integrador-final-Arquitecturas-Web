@@ -2,14 +2,15 @@ package Services;
 
 import Entities.Monopatin;
 import Entities.Parada;
+import Entities.Viaje;
 import Repositories.GestorMantenimientoRepository;
 import Repositories.GestorMonopatinRepository;
 import Repositories.GestorParadaRepository;
-import dtos.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -68,5 +69,13 @@ public class GestorService {
 
     public List<Object[]> getReporteDeUso(boolean incluirPausas) {
         return gestorMonopatinRepository.getReporteDeUso(incluirPausas);
+    }
+
+    public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
+        Viaje.setPrecioXKilometro(nuevaTarifa);
+    }
+
+    public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
+       Viaje.setTarifaPausaExtensa(nuevaTarifa);
     }
 }
