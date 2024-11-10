@@ -20,7 +20,7 @@ public interface GestorMonopatinRepository extends JpaRepository<Monopatin, Inte
     public void ubicarMonopatin(@Param("idMonopatin") int idMonopatin, @Param("idParada") int idParada);
 
     @Query("SELECT SUM(CASE WHEN m.estado = 'En mantenimiento' THEN 1 ELSE 0 END) AS MonopatinesEnMantenimiento, " +
-            "SUM(CASE WHEN m.estado = 'operativo' THEN 1 ELSE 0 END) AS MonopatinesOperativos " +
+            "SUM(CASE WHEN m.estado = 'Operativo' THEN 1 ELSE 0 END) AS MonopatinesOperativos " +
             "FROM Gestor g JOIN g.flotaDeMonopatines m")
     public List<Object[]> getMonopatinesOperativosYMantenimiento();
 

@@ -12,7 +12,7 @@ int horasDeUso;
 
 int Kilometraje;
 
-String estado;
+String estado;  //Puede ser "Operativo" o "En mantenimiento"
 
 @OneToOne
 Viaje viajeActual;
@@ -25,6 +25,5 @@ int contadorPausa;
 GPS gps;
 
 @ManyToOne
-@JoinColumn(name = "idParada") // Esta columna hace referencia a la clave primaria en Parada
 private Parada paradaActual;
 }

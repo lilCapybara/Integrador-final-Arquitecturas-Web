@@ -14,7 +14,4 @@ public class Parada {
 
     private int posY;
 
-    @OneToMany(mappedBy = "paradaActual")
-    private List<Monopatin> monopatinesEnParada;
-
 }
