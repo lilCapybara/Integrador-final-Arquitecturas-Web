@@ -50,15 +50,15 @@ public class GestorController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/monopatin/iniciarMantenimientoMonopatin/{idMonopatin}")
+    @PutMapping("/monopatin/iniciarMantenimiento/{idMonopatin}")
     public ResponseEntity<Void>iniciarMantenimientoMonopatin(@PathVariable int idMonopatin){
         gestorService.iniciarMantenimientoMonopatin(idMonopatin);
         return ResponseEntity.status(201).build();
     }
 
-    @PutMapping("/monopatin/finalizarMantenimientoMonopatin/{idMonopatin}")
-    public ResponseEntity<Void>finalizarMantenimientoMonopatin(@PathVariable int idMonopatin){
-        gestorService.finalizarMantenimientoMonopatin(idMonopatin);
+    @PutMapping("/monopatin/finalizarMantenimiento/{idMonopatin}/{idParada}")
+    public ResponseEntity<Void>finalizarMantenimientoMonopatin(@PathVariable int idMonopatin, @PathVariable int idParada){
+        gestorService.finalizarMantenimientoMonopatin(idMonopatin, idParada);
         return ResponseEntity.status(201).build();
     }
 

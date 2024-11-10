@@ -53,11 +53,13 @@ public class GestorService {
     @Transactional
     public void iniciarMantenimientoMonopatin(int idMonopatin) {
         gestorMantenimientoRepository.iniciarMantenimiento(idMonopatin,"En mantenimiento");
+        gestorMonopatinRepository.enviarATaller(idMonopatin);
     }
 
     @Transactional
-    public void finalizarMantenimientoMonopatin(int idMonopatin) {
+    public void finalizarMantenimientoMonopatin(int idMonopatin, int idParada) {
         gestorMantenimientoRepository.finalizarMantenimiento(idMonopatin,"En circulacion");
+        gestorMonopatinRepository.ubicarMonopatin(idMonopatin,idParada);
     }
 
     @Transactional

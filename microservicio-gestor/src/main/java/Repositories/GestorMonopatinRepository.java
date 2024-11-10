@@ -19,6 +19,11 @@ public interface GestorMonopatinRepository extends JpaRepository<Monopatin, Inte
     @Query("UPDATE Monopatin m SET m.paradaActual.idParada = :idParada WHERE m.idMonopatin = :idMonopatin")
     public void ubicarMonopatin(@Param("idMonopatin") int idMonopatin, @Param("idParada") int idParada);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Monopatin m SET m.paradaActual.idParada = null WHERE m.idMonopatin = :idMonopatin")
+    public void enviarATaller(int idMonopatin);
+
     @Query("SELECT SUM(CASE WHEN m.estado = 'En mantenimiento' THEN 1 ELSE 0 END) AS MonopatinesEnMantenimiento, " +
             "SUM(CASE WHEN m.estado = 'Operativo' THEN 1 ELSE 0 END) AS MonopatinesOperativos " +
             "FROM Gestor g JOIN g.flotaDeMonopatines m")
@@ -37,4 +42,6 @@ public interface GestorMonopatinRepository extends JpaRepository<Monopatin, Inte
             "FROM Monopatin m " +
             "GROUP BY m.idMonopatin")
     public List<Object[]> getReporteDeUso(@Param ("incluirPausas") boolean incluirPausas);
+
+
 }
