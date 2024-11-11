@@ -11,4 +11,5 @@ public class Gestor {
     private Long idGestor;
     private List<Monopatin> flotaDeMonopatines;
     private List<Parada> listaDeParadas;
+    private List<Viaje> listaDeViajes;
 }
