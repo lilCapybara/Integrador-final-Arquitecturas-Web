@@ -97,4 +97,5 @@ public class GestorController {
         gestorService.anularUsuario(idUsuario);
         return ResponseEntity.status(201).build();
     }
+
 }

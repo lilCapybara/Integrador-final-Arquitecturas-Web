@@ -5,25 +5,33 @@ import jakarta.persistence.*;
 @Entity
 public class Monopatin {
 
-@Id
-int idMonopatin;
+    @Id
+    int idMonopatin;
 
-int horasDeUso;
+    int horasDeUso;
 
-int kilometraje;
+    int kilometraje;
 
-String estado;  //Puede ser "Operativo" o "En mantenimiento"
+    String estado;  //Puede ser "Operativo" o "En mantenimiento"
 
-@OneToOne
-Viaje viajeActual;
+    @OneToOne
+    Viaje viajeActual;
 
-Boolean pausa;
+    Boolean pausa;
 
-int contadorPausa;
+    int contadorPausa;
 
-@OneToOne
-GPS gps;
+    @OneToOne
+    GPS gps;
 
-@ManyToOne
-private Parada paradaActual;
+    @ManyToOne
+    private Parada paradaActual;
+
+    public int getPosX(){
+        return this.gps.getPosActualX();
+    }
+
+    public int getPosY(){
+        return this.gps.getPosActualY();
+    }
 }

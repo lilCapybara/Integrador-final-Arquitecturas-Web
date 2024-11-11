@@ -1,6 +1,7 @@
 package Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Date;
 import java.util.List;
@@ -32,5 +33,11 @@ public class Usuario {
 
     @OneToOne
     private Monopatin monopatinEnUso;
+
+    @Getter
+    private int posX;
+
+    @Getter
+    private int posY;
 
 }
