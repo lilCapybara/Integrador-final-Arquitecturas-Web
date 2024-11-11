@@ -30,7 +30,7 @@ public class Viaje {
 
     private Date fechaFinalizacion;
 
-    private Date horaInicializacion;
+    private Date horaFinalizacion;
 
     public Viaje(Parada paradaOrigen, Parada paradaDestino, int kilometrosRecorridos, int tiempoDeViaje, Date fechaInicio, Date horaInicio, Date fechaFinalizacion, Date horaInicializacion) {
         this.paradaOrigen = paradaOrigen;
@@ -40,7 +40,7 @@ public class Viaje {
         this.fechaInicio = fechaInicio;
         this.horaInicio = horaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
-        this.horaInicializacion = horaInicializacion;
+        this.horaFinalizacion = horaInicializacion;
     }
 
     public Parada getParadaOrigen() {
@@ -115,11 +115,11 @@ public class Viaje {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public Date getHoraInicializacion() {
-        return horaInicializacion;
+    public Date getHoraFinalizacion() {
+        return horaFinalizacion;
     }
 
-    public void setHoraInicializacion(Date horaInicializacion) {
-        this.horaInicializacion = horaInicializacion;
+    public void setHoraFinalizacion(Date horaInicializacion) {
+        this.horaFinalizacion = horaInicializacion;
     }
 }
