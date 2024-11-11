@@ -2,6 +2,7 @@ package Services;
 
 import Entities.Monopatin;
 import Entities.Parada;
+import Entities.PrecioViaje;
 import Entities.Viaje;
 import Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class GestorService {
     private GestorMantenimientoRepository gestorMantenimientoRepository;
     @Autowired
     private GestorUsuarioRepository gestorUsuarioRepository;
+    @Autowired
+    private GestorViajeRepository gestorViajeRepository;
 
     private MonopatinRepository monopatinRepository;
 
@@ -76,11 +79,11 @@ public class GestorService {
     }
 
     public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
-        Viaje.setPrecioXKilometro(nuevaTarifa);
+        PrecioViaje.setPrecioXKilometro(nuevaTarifa);
     }
 
     public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
-       Viaje.setTarifaPausaExtensa(nuevaTarifa);
+       PrecioViaje.setTarifaPausaExtensa(nuevaTarifa);
     }
 
     public void anularUsuario(int idUsuario) {
@@ -115,5 +118,9 @@ public class GestorService {
 
     private double calcularDistancia(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    public List<Object[]> getFacturacion(Date mesInicio, Date mesFin) {
+        return gestorViajeRepository.getFacturacion(mesInicio,mesFin);
     }
 }

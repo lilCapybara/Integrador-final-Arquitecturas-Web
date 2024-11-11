@@ -20,9 +20,9 @@ public class Viaje {
 
     private int tiempoDeViaje;
 
-    private static int precioXKilometro;
+    private int tiempoExcedido;
 
-    private static int tarifaPausaExtensa;
+    private boolean pausaExtensa;
 
     private Date fechaInicio;
 
@@ -32,7 +32,13 @@ public class Viaje {
 
     private Date horaInicializacion;
 
-    public Viaje(Parada paradaOrigen, Parada paradaDestino, int kilometrosRecorridos, int tiempoDeViaje, Date fechaInicio, Date horaInicio, Date fechaFinalizacion, Date horaInicializacion) {
+    @Transient
+    private PrecioViaje precioViaje;
+
+    private double precioTotal=this.getPrecio();
+
+    public Viaje(PrecioViaje precioViaje, Parada paradaOrigen, Parada paradaDestino, int kilometrosRecorridos, int tiempoDeViaje, Date fechaInicio, Date horaInicio, Date fechaFinalizacion, Date horaInicializacion) {
+        this.precioViaje=precioViaje;
         this.paradaOrigen = paradaOrigen;
         this.paradaDestino = paradaDestino;
         this.kilometrosRecorridos = kilometrosRecorridos;
@@ -41,6 +47,18 @@ public class Viaje {
         this.horaInicio = horaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
         this.horaInicializacion = horaInicializacion;
+    }
+
+    public Viaje() {}
+
+    public double getPrecio(){
+        double precio = 0;
+        if (this.pausaExtensa) {
+            precio = (this.kilometrosRecorridos * this.precioViaje.getPrecioXKilometro()) + (this.tiempoExcedido * this.precioViaje.getTarifaPausaExtensa());
+        } else {
+            precio = (this.kilometrosRecorridos * this.precioViaje.getPrecioXKilometro());
+        }
+        return precio;
     }
 
     public Parada getParadaOrigen() {
@@ -73,22 +91,6 @@ public class Viaje {
 
     public void setTiempoDeViaje(int tiempoDeViaje) {
         this.tiempoDeViaje = tiempoDeViaje;
-    }
-
-    public static int getPrecioXKilometro() {
-        return precioXKilometro;
-    }
-
-    public static void setPrecioXKilometro(int precioXKilometro) {
-        Viaje.precioXKilometro = precioXKilometro;
-    }
-
-    public static int getTarifaPausaExtensa() {
-        return tarifaPausaExtensa;
-    }
-
-    public static void setTarifaPausaExtensa(int tarifaPausaExtensa) {
-        Viaje.tarifaPausaExtensa = tarifaPausaExtensa;
     }
 
     public Date getFechaInicio() {
