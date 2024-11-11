@@ -43,9 +43,9 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioModificado);
     }
 
-    @GetMapping("/monopatinesCercanos/{posX}/{posY}")
-    public ResponseEntity<List<Object[]>> getMonopatinesCercanos(@PathVariable int posX, @PathVariable int posY) {
-        List<Object[]> listaDeMonopatines = usuarioService.getMonopatinesCercanos(posX,posY);
+    @GetMapping("/monopatinesCercanos/{idUsuario}")
+    public ResponseEntity<List<Object[]>> getMonopatinesCercanos(@PathVariable int idUsuario) {
+        List<Object[]> listaDeMonopatines = usuarioService.getMonopatinesCercanos(idUsuario);
         return ResponseEntity.ok(listaDeMonopatines);
     }
 }

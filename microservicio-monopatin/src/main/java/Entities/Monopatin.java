@@ -1,6 +1,7 @@
 package Entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 public class Monopatin {
@@ -33,5 +34,9 @@ public class Monopatin {
 
     public int getPosY(){
         return this.gps.getPosActualY();
+    }
+
+    public int getIdMonopatin() {
+        return idMonopatin;
     }
 }

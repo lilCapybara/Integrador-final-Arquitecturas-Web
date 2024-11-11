@@ -17,10 +17,6 @@ public class UsuarioService {
 
     private GestorService gestorService;
 
-    public List<Monopatin> getMonopatinesCercanosAUsuario(int posX, int posY) {
-
-        return gestorService.getMonopatinesCercanos(posX,posY);
-    }
 
     public Usuario insertarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
@@ -43,5 +39,12 @@ public class UsuarioService {
 
     public Optional<Usuario> encontrarPorId(int idUsuario) {
         return usuarioRepository.findById(idUsuario);
+    }
+
+    public List<Object[]> getMonopatinesCercanos(int idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
+        int posUsuarioX=usuario.getPosX();
+        int posUsuarioY=usuario.getPosY();
+        return gestorService.getMonopatinesCercanos(posUsuarioX,posUsuarioY);
     }
 }

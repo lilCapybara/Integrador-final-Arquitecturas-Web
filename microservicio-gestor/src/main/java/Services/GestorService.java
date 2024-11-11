@@ -3,16 +3,13 @@ package Services;
 import Entities.Monopatin;
 import Entities.Parada;
 import Entities.Viaje;
-import Repositories.GestorMantenimientoRepository;
-import Repositories.GestorMonopatinRepository;
-import Repositories.GestorParadaRepository;
-import Repositories.GestorUsuarioRepository;
+import Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GestorService {
@@ -24,6 +21,8 @@ public class GestorService {
     private GestorMantenimientoRepository gestorMantenimientoRepository;
     @Autowired
     private GestorUsuarioRepository gestorUsuarioRepository;
+
+    private MonopatinRepository monopatinRepository;
 
     @Transactional
     public Monopatin insertarMonopatin(Monopatin monopatin) {
@@ -88,7 +87,31 @@ public class GestorService {
         gestorUsuarioRepository.anularUsuario(idUsuario);
     }
 
-    public List<Monopatin> getMonopatinesCercanos(int posX, int posY) {}
+    public List<Object[]> getMonopatinesCercanos(int posUsuarioX, int posUsuarioY) {
+        List<Monopatin> monopatines = monopatinRepository.findAll();
+        double distanciaMinima = Double.MAX_VALUE;
+        Map<Double, List<Monopatin>> distanciaMap = new HashMap<>();
+
+        for (Monopatin monopatin : monopatines) {
+            int posX = monopatin.getPosX();
+            int posY = monopatin.getPosY();
+
+            double distancia = calcularDistancia(posUsuarioX, posUsuarioY, posX, posY);
+
+            // Actualiza el mapa de distancias
+            distanciaMap.computeIfAbsent(distancia, k -> new ArrayList<>()).add(monopatin);
+
+            // Mantiene la distancia mínima
+            distanciaMinima = Math.min(distanciaMinima, distancia);
+        }
+
+        // Devuelve los monopatines que estan a la distancia minima obtenida
+        return distanciaMap.getOrDefault(distanciaMinima, Collections.emptyList())
+                .stream()
+                .map(m -> new Object[]{m.getIdMonopatin(), m.getPosX(), m.getPosY()})
+                .collect(Collectors.toList());
+    }
+
 
     private double calcularDistancia(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
