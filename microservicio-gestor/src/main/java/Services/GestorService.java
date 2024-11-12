@@ -120,7 +120,7 @@ public class GestorService {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    public List<Object[]> getFacturacion(Date mesInicio, Date mesFin) {
+    public double getFacturacion(Date mesInicio, Date mesFin) {
         return gestorViajeRepository.getFacturacion(mesInicio,mesFin);
     }
 }

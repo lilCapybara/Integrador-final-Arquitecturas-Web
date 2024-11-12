@@ -37,8 +37,7 @@ public class Viaje {
 
     private double precioTotal=this.getPrecio();
 
-    public Viaje(PrecioViaje precioViaje, Parada paradaOrigen, Parada paradaDestino, int kilometrosRecorridos, int tiempoDeViaje, Date fechaInicio, Date horaInicio, Date fechaFinalizacion, Date horaInicializacion) {
-        this.precioViaje=precioViaje;
+    public Viaje(Parada paradaOrigen, Parada paradaDestino, int kilometrosRecorridos, int tiempoDeViaje, Date fechaInicio, Date horaInicio, Date fechaFinalizacion, Date horaInicializacion, PrecioViaje precioViaje) {
         this.paradaOrigen = paradaOrigen;
         this.paradaDestino = paradaDestino;
         this.kilometrosRecorridos = kilometrosRecorridos;
@@ -47,6 +46,7 @@ public class Viaje {
         this.horaInicio = horaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
         this.horaFinalizacion = horaInicializacion;
+        this.precioViaje=precioViaje;
     }
 
     public Viaje() {}

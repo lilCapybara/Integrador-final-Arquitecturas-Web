@@ -99,9 +99,8 @@ public class GestorController {
     }
 
     @GetMapping("/getFacturacion/{mesInicio}/{mesFin}")
-    public ResponseEntity<List<Object[]>> getFacturacion(@PathVariable Date mesInicio, @PathVariable Date mesFin){
-        List<Object[]> facturacion = gestorService.getFacturacion(mesInicio,mesFin);
-        return ResponseEntity.ok(facturacion);
+    public double getFacturacion(@PathVariable Date mesInicio, @PathVariable Date mesFin){
+        return gestorService.getFacturacion(mesInicio,mesFin);
     }
 
 
