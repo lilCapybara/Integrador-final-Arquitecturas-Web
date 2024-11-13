@@ -9,10 +9,10 @@ public class PrecioViaje {
     private int idPrecio;
 
     @Getter
-    @Setter
+
     private int precioXKilometro;
 
-    @Getter @Setter
+    @Getter
     private int tarifaPausaExtensa;
 
     public PrecioViaje(int precioXKilometro, int tarifaPausaExtensa) {
@@ -20,11 +20,11 @@ public class PrecioViaje {
         this.tarifaPausaExtensa = tarifaPausaExtensa;
     }
 
-    public static void setPrecioXKilometro(int precioXKilometro) {
+    public void setPrecioXKilometro(int precioXKilometro) {
         this.precioXKilometro = precioXKilometro;
     }
 
-    public static void setTarifaPausaExtensa(int tarifaPausaExtensa) {
+    public void setTarifaPausaExtensa(int tarifaPausaExtensa) {
         this.tarifaPausaExtensa = tarifaPausaExtensa;
     }
 }
