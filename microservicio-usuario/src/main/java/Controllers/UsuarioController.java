@@ -4,6 +4,7 @@ import Entities.Usuario;
 import Services.GestorService;
 import Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +51,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/cambiarEstadoUsuario/{idUsuario}/{estado}")
-    public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable int estado) {
+    public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable boolean estado) {
         usuarioService.cambiarEstadoUsuario(idUsuario,estado);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

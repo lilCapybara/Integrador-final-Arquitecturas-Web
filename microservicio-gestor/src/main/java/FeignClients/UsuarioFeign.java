@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @FeignClient(name = "microservicio-usuario")
 public interface UsuarioFeign {
-    // Habilita o deshabilita una cuenta
+
     @PutMapping("api/microservicioUsuario/usuarios/cambiarEstadoUsuario/{idUsuario}/{estado}")
-    public void anularUsuario(@PathVariable("idUsuario") int id, @PathVariable boolean estado);
+    public void cambiarEstadoUsuario(@PathVariable("idUsuario") int id, @PathVariable boolean estado);
 }
