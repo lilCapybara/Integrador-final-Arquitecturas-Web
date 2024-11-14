@@ -4,6 +4,7 @@ import Entities.Monopatin;
 import Entities.Parada;
 import Entities.PrecioViaje;
 import Entities.Viaje;
+import FeignClients.UsuarioFeign;
 import Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,13 +80,14 @@ public class GestorService {
     }
 
     public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
-        PrecioViaje.setPrecioXKilometro(nuevaTarifa);
+        gestorViajeRepository.setPrecioXKilometro(nuevaTarifa, fecha);
     }
 
     public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
-       PrecioViaje.setTarifaPausaExtensa(nuevaTarifa);
+       gestorViajeRepository.setTarifaPausaExtensa(nuevaTarifa, fecha);
     }
 
+    @Transactional
     public void anularUsuario(int idUsuario) {
         gestorUsuarioRepository.anularUsuario(idUsuario);
     }
