@@ -47,4 +47,11 @@ public class UsuarioService {
         int posUsuarioY=usuario.getPosY();
         return gestorService.getMonopatinesCercanos(posUsuarioX,posUsuarioY);
     }
+
+    public void cambiarEstadoUsuario(int idUsuario, boolean estado) {
+        Usuario usuarioAModificar=usuarioRepository.findById(idUsuario).get();
+
+        usuarioAModificar.setCuentaActiva(estado);
+        usuarioRepository.save(usuarioAModificar);
+    }
 }

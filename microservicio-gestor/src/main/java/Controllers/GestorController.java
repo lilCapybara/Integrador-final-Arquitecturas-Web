@@ -1,10 +1,8 @@
 package Controllers;
 
-import Entities.Gestor;
 import Entities.Monopatin;
 import Entities.Parada;
 import Services.GestorService;
-import dtos.MonopatinDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -92,9 +90,9 @@ public class GestorController {
         return ResponseEntity.status(201).build();
     }
 
-    @PutMapping("/usuarios/anularUsuario/{idUsuario}")
-    public ResponseEntity<Void> anularUsuario(@PathVariable int idUsuario){
-        gestorService.anularUsuario(idUsuario);
+    @PutMapping("/usuarios/cambiarEstadoUsuario/{idUsuario}/{estado}")
+    public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable boolean estado){
+        gestorService.cambiarEstadoUsuario(idUsuario,estado);
         return ResponseEntity.status(201).build();
     }
 

@@ -2,8 +2,6 @@ package Services;
 
 import Entities.Monopatin;
 import Entities.Parada;
-import Entities.PrecioViaje;
-import Entities.Viaje;
 import FeignClients.UsuarioFeign;
 import Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,8 @@ public class GestorService {
     private GestorUsuarioRepository gestorUsuarioRepository;
     @Autowired
     private GestorViajeRepository gestorViajeRepository;
+    @Autowired
+    private UsuarioFeign usuarioFeign;
 
     private MonopatinRepository monopatinRepository;
 
@@ -88,8 +88,8 @@ public class GestorService {
     }
 
     @Transactional
-    public void anularUsuario(int idUsuario) {
-        gestorUsuarioRepository.anularUsuario(idUsuario);
+    public void cambiarEstadoUsuario(int idUsuario, boolean estado) {
+        usuarioFeign.cambiarEstadoUsuario(idUsuario,estado);
     }
 
     public List<Object[]> getMonopatinesCercanos(int posUsuarioX, int posUsuarioY) {

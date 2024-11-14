@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/microservicioUsuario/Usuario")
+@RequestMapping("api/microservicioUsuario/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -47,5 +47,10 @@ public class UsuarioController {
     public ResponseEntity<List<Object[]>> getMonopatinesCercanos(@PathVariable int idUsuario) {
         List<Object[]> listaDeMonopatines = usuarioService.getMonopatinesCercanos(idUsuario);
         return ResponseEntity.ok(listaDeMonopatines);
+    }
+
+    @PutMapping("/cambiarEstadoUsuario/{idUsuario}/{estado}")
+    public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable int estado) {
+        usuarioService.cambiarEstadoUsuario(idUsuario,estado);
     }
 }
