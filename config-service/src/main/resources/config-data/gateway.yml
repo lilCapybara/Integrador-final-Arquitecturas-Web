@@ -1,0 +1,41 @@
+server:
+  port: 2000
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: microservicio-gestor
+            uri: lb://microservicio-gestor
+            predicates:
+              - Path=/api/microservicioGestor/**
+          - id: microservicio-monopatin
+            uri: lb://microservicio-monopatin
+            predicates:
+              - Path=/api/microservicioMonopatin/**
+          - id: microservicio-parada
+            uri: lb://microservicio-parada
+            predicates:
+              - Path=/api/microservicioParada/**
+          - id: microservicio-usuario
+            uri: lb://microservicio-usuario
+            predicates:
+              - Path=/api/microservicioUsuario/**
+          - id: microservicio-viaje
+            uri: lb://microservicio-viaje
+            predicates:
+              - Path=/api/microservicioViaje/**
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
