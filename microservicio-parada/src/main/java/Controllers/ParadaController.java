@@ -20,13 +20,13 @@ public class ParadaController {
         return ResponseEntity.ok().body(nuevaParada);
     }
 
-    @GetMapping("/agregarParada")
+    @PostMapping("/agregarParada")
     public ResponseEntity<Parada> agregarUsuario(@RequestBody Parada parada) {
         Parada nuevaParada = paradaService.insertarParada(parada);
         return ResponseEntity.ok(nuevaParada);
     }
 
-    @PostMapping("/quitarParada/{idParada}")
+    @DeleteMapping("/quitarParada/{idParada}")
     public ResponseEntity<Void> quitarParada(@PathVariable int idParada){
         paradaService.borrarParada(idParada);
         return ResponseEntity.noContent().build();

@@ -26,13 +26,13 @@ public class UsuarioController {
         return ResponseEntity.ok().body(nuevoUsuario);
     }
 
-    @GetMapping("/agregarUsuario")
+    @PostMapping("/agregarUsuario")
     public ResponseEntity<Usuario> agregarUsuario(@RequestBody Usuario usuario) {
         Usuario nuevoUsuario = usuarioService.insertarUsuario(usuario);
         return ResponseEntity.ok(nuevoUsuario);
     }
 
-    @PostMapping("/quitarUsuario/{idUsuario}")
+    @DeleteMapping("/quitarUsuario/{idUsuario}")
     public ResponseEntity<Void> quitarUsuario(@PathVariable int idUsuario){
         usuarioService.borrarUsuario(idUsuario);
         return ResponseEntity.noContent().build();
