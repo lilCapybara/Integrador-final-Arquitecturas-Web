@@ -29,9 +29,9 @@ public class User {
     @Column( nullable = false )
     private String password;
 
-    @JsonIgnore
-    @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST )
-    @JoinTable(
+    @JsonIgnore //Es recomendable usar FetchType.LAZY para que traiga la lista de autoridades solo si se la pide
+    @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST )    //Es ManyToMany ya que un usuario puede ser admin y alumno
+    @JoinTable(                                                             //y admin pueden ser varios usuarios
             name = "user_authority",
             joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "authority_name", referencedColumnName = "name") }

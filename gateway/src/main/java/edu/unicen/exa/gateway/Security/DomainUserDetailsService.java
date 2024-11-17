@@ -28,7 +28,7 @@ public class DomainUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(final String username ) {
+    public UserDetails loadUserByUsername(final String username ) { //Utilizo username para autenticar y cargar el usuario
         log.debug("Authenticating {}", username);
 
         return userRepository
@@ -37,10 +37,10 @@ public class DomainUserDetailsService implements UserDetailsService {
                 .orElseThrow( () -> new UsernameNotFoundException( "El usuario " + username + " no existe" ) );
     }
 
-    private UserDetails createSpringSecurityUser( User user ) {
+    private UserDetails createSpringSecurityUser( User user ) { //Mapea el usuario de la entidad User al Spring Security User
         List<GrantedAuthority> grantedAuthorities = user
                 .getAuthorities()
-                .stream()
+                .stream()   //Es similar a hacer un for que recorra las authorities
                 .map( Authority::getName )
                 .map( SimpleGrantedAuthority::new )
                 .collect( Collectors.toList() );

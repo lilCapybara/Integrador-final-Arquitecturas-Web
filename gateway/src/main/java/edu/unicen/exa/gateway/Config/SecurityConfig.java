@@ -51,7 +51,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()   //Las demas URLs que no defini estan autenticadas
                 )
                 .httpBasic( Customizer.withDefaults() )
-                .addFilterBefore( new JwtFilter( this.tokenProvider ), UsernamePasswordAuthenticationFilter.class );
+                .addFilterBefore( new JwtFilter( this.tokenProvider ), UsernamePasswordAuthenticationFilter.class );    //Filtro para autenticacion por nombre y contraseña
         return http.build();
     }
 

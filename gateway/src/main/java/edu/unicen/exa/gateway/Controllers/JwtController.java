@@ -29,7 +29,7 @@ public class JwtController {
     @PostMapping()
     public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginDTO request ) {
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(  //Usuario introduce los datos para validarse
                 request.getUsername(),
                 request.getPassword()
         );

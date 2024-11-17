@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
+    //Como authorities tiene FetchType.LAZY, debo usar fetch en la consulta para que me traiga las autoridades del usuario
     @Query("""
-        FROM User u JOIN FETCH u.authorities
+        FROM User u JOIN FETCH u.authorities        
         WHERE lower(u.username) =  ?1
     """)
     Optional<User> findOneWithAuthoritiesByUsernameIgnoreCase( String username );

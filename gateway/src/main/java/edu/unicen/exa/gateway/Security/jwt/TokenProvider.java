@@ -19,11 +19,11 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
-public class TokenProvider {
+public class TokenProvider {    //Clase utilizada para crear y validar tokens
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
-    private static final String SECRET = "j7ZookpUTYxclaULynjypGQVKMYXqOXMI+/1sQ2gOV1BF6VOHw6OzYj9RNZY4GcHAE3Igrah3MZ26oLrY/3y4Q==";
-    private static final String AUTHORITIES_KEY = "auth";
+    private static final String SECRET = "j7ZookpUTYxclaULynjypGQVKMYXqOXMI+/1sQ2gOV1BF6VOHw6OzYj9RNZY4GcHAE3Igrah3MZ26oLrY/3y4Q==";    //Clave de jwt usada para generar tokens
+    private static final String AUTHORITIES_KEY = "auth";   //Key usada para agregar roles al token
 
     private static final String INVALID_JWT_TOKEN = "Invalid JWT token.";
 
@@ -37,23 +37,24 @@ public class TokenProvider {
         byte[] keyBytes = Decoders.BASE64.decode( SECRET );
         this.key = Keys.hmacShaKeyFor( keyBytes );
         this.jwtParser = Jwts.parser().verifyWith( key ).build();
-        this.tokenValidityInMilliseconds = 1000 * 86400; // valido por 1 dia.
+        this.tokenValidityInMilliseconds = 1000 * 86400; //Tiempo que el token es valido en milisegundos
     }
 
     public String createToken( Authentication authentication ) {
+        //Obtengo autoridades del usuario
         String authorities = authentication.getAuthorities().stream().map( GrantedAuthority::getAuthority ).collect( Collectors.joining(",") );
 
         long now = ( new Date() ).getTime();
         Date validity = new Date( now + this.tokenValidityInMilliseconds );
 
         return Jwts
-                .builder()
-                .subject( authentication.getName() )
-                .claim( AUTHORITIES_KEY, authorities )
-                .signWith( key )
-                .expiration(validity)
-                .issuedAt( new Date() )
-                .compact();
+                .builder()                              //Construye el token
+                .subject( authentication.getName() )    //Nombre de usuario
+                .claim( AUTHORITIES_KEY, authorities )  //Autoridades del usuario
+                .signWith( key )                        //Se firma el token, asegurando que no se modifique durante su trnasmision
+                .expiration(validity)                   //Tiempo que durara el token
+                .issuedAt( new Date() )                 //Hora a la que se creo el token
+                .compact();                             //Devuelve el string del token
     }
 
     public Authentication getAuthentication(String token) {
