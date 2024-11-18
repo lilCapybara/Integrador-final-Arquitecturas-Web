@@ -1,5 +1,6 @@
 package Services;
 
+import Entities.Gestor;
 import Entities.Monopatin;
 import Entities.Parada;
 import FeignClients.MonopatinFeign;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 public class GestorService {
 
     @Autowired
+    private GestorRepository gestorRepository;
+    @Autowired
     private UsuarioFeign usuarioFeign;
     @Autowired
     private MonopatinFeign monopatinFeign;
@@ -25,6 +28,31 @@ public class GestorService {
     private ViajeFeign viajeFeign;
     @Autowired
     private ParadaFeign paradaFeign;
+
+
+    @Transactional
+    public Gestor insertarGestor(Gestor gestor) {
+        return gestorRepository.save(gestor);
+    }
+
+    @Transactional
+    public void borrarGestor(int idGestor) {
+        gestorRepository.deleteById(idGestor);
+    }
+
+    @Transactional
+    public void modificarGestor(int idGestor, Gestor nuevoGestor) {
+        Gestor gestorAModificar = gestorRepository.findById(idGestor).get();
+
+        gestorAModificar.setNombreGestor(nuevoGestor.getNombreGestor());
+        gestorAModificar.setApellidoGestor(nuevoGestor.getNombreGestor());
+        gestorRepository.save(gestorAModificar);
+    }
+
+    @Transactional
+    public Gestor getGestor(int idGestor) {
+        return gestorRepository.findById(idGestor).get();
+    }
 
 
     @Transactional
@@ -68,6 +96,7 @@ public class GestorService {
     //Servicios pedidos en la consigna
 
     // 3a) Genera reportes de uso con o sin tiempos de pausa
+    @Transactional
     public List<Object[]> getReporteDeUso(boolean incluirPausas) {
         return monopatinFeign.getReporteDeUso(incluirPausas);
     }
@@ -85,6 +114,7 @@ public class GestorService {
     }
 
     // 3d) Me da la cantidad facturada entre dos meses de cierto año
+    @Transactional
     public double getFacturacion(Date anio,Date mesInicio, Date mesFin) {
         return viajeFeign.getFacturacion(anio,mesInicio,mesFin);
     }
@@ -96,13 +126,14 @@ public class GestorService {
     }
 
     // 3f) Funciones utilizadas para actualizar tarifas de viaje y de pausa
+    @Transactional
     public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
         viajeFeign.ajustarTarifaViaje(nuevaTarifa, fecha);
     }
 
+    @Transactional
     public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
         viajeFeign.ajustarTarifaPausa(nuevaTarifa, fecha);
     }
-
 
 }

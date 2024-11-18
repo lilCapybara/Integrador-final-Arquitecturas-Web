@@ -8,6 +8,7 @@ import java.util.Date;
 public class Viaje {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idViaje;
 
     @OneToOne

@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Gestor;
 import Entities.Monopatin;
 import Entities.Parada;
 import Services.GestorService;
@@ -17,6 +18,28 @@ public class GestorController {
     @Autowired
     GestorService gestorService;
 
+    @PostMapping("/agregarGestor")
+    public ResponseEntity<Gestor> agregarGestor(@RequestBody Gestor gestor) {
+        Gestor nuevoGestor=gestorService.insertarGestor(gestor);
+        return ResponseEntity.ok().body(nuevoGestor);
+    }
+
+    @DeleteMapping("/borrarGestor/{idGestor}")
+    public ResponseEntity<Gestor> borrarGestor(@PathVariable int idGestor) {
+        gestorService.borrarGestor(idGestor);
+        return ResponseEntity.ok().body(null);
+    }
+    @PutMapping("/modificarGestor/{idGestor}")
+    public ResponseEntity<Void> modificarGestor(@PathVariable int idGestor, @RequestBody Gestor nuevoGestor) {
+        gestorService.modificarGestor(idGestor, nuevoGestor);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/getGestor/{idGestor}")
+    public ResponseEntity<Gestor> getGestor(@PathVariable int idGestor) {
+        Gestor gestorBuscado = gestorService.getGestor(idGestor);
+        return ResponseEntity.ok().body(gestorBuscado);
+    }
 
     @PostMapping("/monopatin/agregarMonopatin")
     public ResponseEntity<Monopatin> agregarMonopatin(@RequestBody Monopatin monopatin) {

@@ -11,6 +11,7 @@ import java.util.List;
 public class Usuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
 
     @Getter @Setter
@@ -33,13 +34,14 @@ public class Usuario {
 
     @ManyToMany
     @JoinTable(
-            name = "usuario_cuenta", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "idUsuario"), // Columna que referencia a Usuario
-            inverseJoinColumns = @JoinColumn(name = "idCuenta") // Columna que referencia a Cuenta
+            name = "usuario_cuenta",
+            joinColumns = @JoinColumn(name = "idUsuario"),
+            inverseJoinColumns = @JoinColumn(name = "idCuenta")
     )
     private List<Cuenta> cuentasMP;
 
     @Getter @Setter
+    @Column(columnDefinition = "boolean default true")
     private Boolean cuentaActiva;
 
     @Getter @Setter
