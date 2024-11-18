@@ -18,6 +18,8 @@ public class GestorController {
     @Autowired
     GestorService gestorService;
 
+    //CRUD de gestor
+
     @PostMapping("/agregarGestor")
     public ResponseEntity<Gestor> agregarGestor(@RequestBody Gestor gestor) {
         Gestor nuevoGestor=gestorService.insertarGestor(gestor);
