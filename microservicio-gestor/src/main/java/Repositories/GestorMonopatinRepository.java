@@ -24,24 +24,4 @@ public interface GestorMonopatinRepository extends JpaRepository<Monopatin, Inte
     @Query("UPDATE Monopatin m SET m.paradaActual.idParada = null WHERE m.idMonopatin = :idMonopatin")
     public void enviarATaller(int idMonopatin);
 
-    @Query("SELECT SUM(CASE WHEN m.estado = 'En mantenimiento' THEN 1 ELSE 0 END) AS MonopatinesEnMantenimiento, " +
-            "SUM(CASE WHEN m.estado = 'Operativo' THEN 1 ELSE 0 END) AS MonopatinesOperativos " +
-            "FROM Gestor g JOIN g.flotaDeMonopatines m")
-    public List<Object[]> getMonopatinesOperativosYMantenimiento();
-
-    @Query("SELECT m " +
-            "FROM Monopatin m JOIN m.viajeActual v " +
-            "WHERE YEAR(v.fechaInicio) = :anio " +
-            "GROUP BY m " +
-            "HAVING COUNT(v) > :cantViajes")
-    public List<Object[]> getMonopatinesConMasDeXViajesXAnio(@Param ("cantViajes") int cantViajes, @Param("anio") int anio);
-
-    @Query("SELECT m, " +
-            "SUM(m.kilometraje) AS kilometraje, " +
-            "SUM(CASE WHEN :incluirPausas = true THEN m.horasDeUso + m.contadorPausa ELSE m.horasDeUso END) AS horasDeUso " +
-            "FROM Monopatin m " +
-            "GROUP BY m.idMonopatin")
-    public List<Object[]> getReporteDeUso(@Param ("incluirPausas") boolean incluirPausas);
-
-
 }

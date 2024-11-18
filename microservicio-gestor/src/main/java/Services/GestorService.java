@@ -2,7 +2,9 @@ package Services;
 
 import Entities.Monopatin;
 import Entities.Parada;
+import FeignClients.MonopatinFeign;
 import FeignClients.UsuarioFeign;
+import FeignClients.ViajeFeign;
 import Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +22,12 @@ public class GestorService {
     @Autowired
     private GestorMantenimientoRepository gestorMantenimientoRepository;
     @Autowired
-    private GestorUsuarioRepository gestorUsuarioRepository;
-    @Autowired
-    private GestorViajeRepository gestorViajeRepository;
-    @Autowired
     private UsuarioFeign usuarioFeign;
+    @Autowired
+    private MonopatinFeign monopatinFeign;
+    @Autowired
+    private ViajeFeign viajeFeign;
 
-    private MonopatinRepository monopatinRepository;
 
     @Transactional
     public Monopatin insertarMonopatin(Monopatin monopatin) {
@@ -48,6 +49,7 @@ public class GestorService {
         gestorParadaRepository.deleteById(idParada);
     }
 
+
     @Transactional
     public void ubicarMonopatin(int idMonopatin, int idParada) {
         gestorMonopatinRepository.ubicarMonopatin(idMonopatin,idParada);
@@ -65,64 +67,45 @@ public class GestorService {
         gestorMonopatinRepository.ubicarMonopatin(idMonopatin,idParada);
     }
 
-    @Transactional
-    public List<Object[]> getMonopatinesOperativosYMantenimiento() {
-        return gestorMonopatinRepository.getMonopatinesOperativosYMantenimiento();
-    }
 
-    @Transactional
-    public List<Object[]> getMonopatinesConMasDeXViajesXAnio(int cantViajes, int anio) {
-        return gestorMonopatinRepository.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
-    }
+    //Servicios pedidos en la consigna
 
+    // 3a) Genera reportes de uso con o sin tiempos de pausa
     public List<Object[]> getReporteDeUso(boolean incluirPausas) {
-        return gestorMonopatinRepository.getReporteDeUso(incluirPausas);
+        return monopatinFeign.getReporteDeUso(incluirPausas);
     }
 
-    public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
-        gestorViajeRepository.setPrecioXKilometro(nuevaTarifa, fecha);
-    }
-
-    public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
-       gestorViajeRepository.setTarifaPausaExtensa(nuevaTarifa, fecha);
-    }
-
+    // 3b) Funcion utilizada para anular cuentas de usuario
     @Transactional
     public void cambiarEstadoUsuario(int idUsuario, boolean estado) {
         usuarioFeign.cambiarEstadoUsuario(idUsuario,estado);
     }
 
-    public List<Object[]> getMonopatinesCercanos(int posUsuarioX, int posUsuarioY) {
-        List<Monopatin> monopatines = monopatinRepository.findAll();
-        double distanciaMinima = Double.MAX_VALUE;
-        Map<Double, List<Monopatin>> distanciaMap = new HashMap<>();
+    // 3c) Me da una lista de los monopatines que tengan mas de x viajes en cierto año
+    @Transactional
+    public List<Object[]> getMonopatinesConMasDeXViajesXAnio(int cantViajes, int anio) {
+        return monopatinFeign.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
+    }
 
-        for (Monopatin monopatin : monopatines) {
-            int posX = monopatin.getPosX();
-            int posY = monopatin.getPosY();
+    // 3d) Me da la cantidad facturada entre dos meses de cierto año
+    public double getFacturacion(Date anio,Date mesInicio, Date mesFin) {
+        return viajeFeign.getFacturacion(anio,mesInicio,mesFin);
+    }
 
-            double distancia = calcularDistancia(posUsuarioX, posUsuarioY, posX, posY);
+    // 3e) Muestra la cantidad de monopatines en operacion y en mantenimiento
+    @Transactional
+    public List<Object[]> getMonopatinesOperativosYMantenimiento() {
+        return monopatinFeign.getMonopatinesOperativosYMantenimiento();
+    }
 
-            // Actualiza el mapa de distancias
-            distanciaMap.computeIfAbsent(distancia, k -> new ArrayList<>()).add(monopatin);
+    // 3f) Funciones utilizadas para actualizar tarifas de viaje y de pausa
+    public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
+        viajeFeign.ajustarTarifaViaje(nuevaTarifa, fecha);
+    }
 
-            // Mantiene la distancia mínima
-            distanciaMinima = Math.min(distanciaMinima, distancia);
-        }
-
-        // Devuelve los monopatines que estan a la distancia minima obtenida
-        return distanciaMap.getOrDefault(distanciaMinima, Collections.emptyList())
-                .stream()
-                .map(m -> new Object[]{m.getIdMonopatin(), m.getPosX(), m.getPosY()})
-                .collect(Collectors.toList());
+    public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
+        viajeFeign.ajustarTarifaPausa(nuevaTarifa, fecha);
     }
 
 
-    private double calcularDistancia(int x1, int y1, int x2, int y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
-
-    public double getFacturacion(Date mesInicio, Date mesFin) {
-        return gestorViajeRepository.getFacturacion(mesInicio,mesFin);
-    }
 }

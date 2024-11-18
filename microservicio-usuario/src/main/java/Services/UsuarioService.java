@@ -2,6 +2,8 @@ package Services;
 
 import Entities.Monopatin;
 import Entities.Usuario;
+import FeignClients.MonopatinFeign;
+import Repositories.MonopatinRepository;
 import Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private GestorService gestorService;
+    private MonopatinFeign monopatinFeign;
 
 
     public Usuario insertarUsuario(Usuario usuario) {
@@ -41,17 +43,23 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario);
     }
 
-    public List<Object[]> getMonopatinesCercanos(int idUsuario) {
-        Usuario usuario = usuarioRepository.findById(idUsuario).get();
-        int posUsuarioX=usuario.getPosX();
-        int posUsuarioY=usuario.getPosY();
-        return gestorService.getMonopatinesCercanos(posUsuarioX,posUsuarioY);
-    }
+    //Servicios pedidos en la consigna
 
+    // 3b) Funcion utilizada para anular cuentas de usuario
     public void cambiarEstadoUsuario(int idUsuario, boolean estado) {
         Usuario usuarioAModificar=usuarioRepository.findById(idUsuario).get();
 
         usuarioAModificar.setCuentaActiva(estado);
         usuarioRepository.save(usuarioAModificar);
     }
+
+    // 3g) Obtiene un listado de los monopatines mas cercanos a la posicion (x,y) del usuario
+    public List<Object[]> getMonopatinesCercanos(int idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
+        int posUsuarioX=usuario.getPosX();
+        int posUsuarioY=usuario.getPosY();
+        return monopatinFeign.getMonopatinesCercanos(posUsuarioX,posUsuarioY);
+    }
+
+
 }

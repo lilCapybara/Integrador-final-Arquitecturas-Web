@@ -44,15 +44,19 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioModificado);
     }
 
-    @GetMapping("/monopatinesCercanos/{idUsuario}")
-    public ResponseEntity<List<Object[]>> getMonopatinesCercanos(@PathVariable int idUsuario) {
-        List<Object[]> listaDeMonopatines = usuarioService.getMonopatinesCercanos(idUsuario);
-        return ResponseEntity.ok(listaDeMonopatines);
-    }
+    //Servicios pedidos en la consigna
 
+    // 3b) Funcion utilizada para anular cuentas de usuario
     @PutMapping("/cambiarEstadoUsuario/{idUsuario}/{estado}")
     public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable boolean estado) {
         usuarioService.cambiarEstadoUsuario(idUsuario,estado);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 3g) Obtiene un listado de los monopatines mas cercanos a la posicion (x,y) del usuario
+    @GetMapping("/monopatinesCercanos/{idUsuario}")
+    public ResponseEntity<List<Object[]>> getMonopatinesCercanos(@PathVariable int idUsuario) {
+        List<Object[]> listaDeMonopatines = usuarioService.getMonopatinesCercanos(idUsuario);
+        return ResponseEntity.ok(listaDeMonopatines);
     }
 }

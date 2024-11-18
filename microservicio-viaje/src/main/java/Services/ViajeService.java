@@ -5,6 +5,7 @@ import Repositories.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -37,5 +38,17 @@ public class ViajeService {
 
     public Optional<Viaje> encontrarPorId(int idViaje) {
         return viajeRepository.findById(idViaje);
+    }
+
+    public double getFacturacion(Date anio, Date mesInicio, Date mesFin) {
+        return viajeRepository.getFacturacion(anio,mesInicio,mesFin);
+    }
+
+    public void ajustarTarifaViaje(int nuevaTarifa, Date fecha) {
+        viajeRepository.ajustarTarifaViaje(nuevaTarifa, fecha);
+    }
+
+    public void ajustarTarifaPausa(int nuevaTarifa, Date fecha) {
+        viajeRepository.ajustarTarifaPausa(nuevaTarifa, fecha);
     }
 }

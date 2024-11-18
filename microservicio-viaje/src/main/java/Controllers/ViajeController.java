@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/microservicioViaje/Viaje")
+@RequestMapping("api/microservicioViaje/")
 public class ViajeController {
     @Autowired
     private ViajeService viajeService;
@@ -37,4 +38,20 @@ public class ViajeController {
         Viaje viajeModificado = viajeService.modificarViaje(idViaje,viaje);
         return ResponseEntity.ok(viajeModificado);
     }
+
+    @GetMapping("/facturacion/{anio}/{mesInicio}/{mesFin}")
+    public double getFacturacion(@PathVariable("anio") Date anio, @PathVariable("mesInicio") Date mesInicio, @PathVariable("mesFin") Date mesFin){
+        return viajeService.getFacturacion(anio,mesInicio,mesFin);
+    };
+
+    @PutMapping("/ajustarTarifaViaje/{nuevaTarifa}/{fecha}")
+    public void ajustarTarifaViaje(@PathVariable("nuevaTarifa") int nuevaTarifa, @PathVariable("fecha") Date fecha){
+        viajeService.ajustarTarifaViaje(nuevaTarifa,fecha);
+    }
+
+    @PutMapping("/ajustarTarifaPausa/{nuevaTarifa}/{fecha}")
+    public void ajustarTarifaPausa(@PathVariable("nuevaTarifa") int nuevaTarifa, @PathVariable("fecha")  Date fecha){
+        viajeService.ajustarTarifaPausa(nuevaTarifa,fecha);
+    }
+
 }

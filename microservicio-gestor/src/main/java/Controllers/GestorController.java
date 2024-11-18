@@ -60,24 +60,44 @@ public class GestorController {
         return ResponseEntity.status(201).build();
     }
 
-    @GetMapping("/monopatin/getMonopatinesOperativosYMantenimiento")
-    public ResponseEntity<List<Object[]>> getMonopatinesOperativosYMantenimiento(){
-        List<Object[]> reporte = gestorService.getMonopatinesOperativosYMantenimiento();
-        return ResponseEntity.ok(reporte);
-    }
 
-    @GetMapping("/xViajesXAnio/{cantViajes}/{anio}")
-    public ResponseEntity<List<Object[]>> getMonopatinesConMasDeXViajesXAnio(@PathVariable int cantViajes, @PathVariable int anio){
-        List<Object[]> reporte = gestorService.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
-        return ResponseEntity.ok(reporte);
-    }
+    //Servicios pedidos en la consigna
 
+    // 3a) Genera reportes de uso con o sin tiempos de pausa
     @GetMapping("/monopatin/reporteDeUso/{incluirPausas}")
     public ResponseEntity<List<Object[]>> getReporteDeUso(@PathVariable boolean incluirPausas){
         List<Object[]> reporte = gestorService.getReporteDeUso(incluirPausas);
         return ResponseEntity.ok(reporte);
     }
 
+    // 3b) Funcion utilizada para anular cuentas de usuario
+    @PutMapping("/usuarios/cambiarEstadoUsuario/{idUsuario}/{estado}")
+    public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable boolean estado){
+        gestorService.cambiarEstadoUsuario(idUsuario,estado);
+        return ResponseEntity.status(201).build();
+    }
+
+    // 3c) Me da una lista de los monopatines que tengan mas de x viajes en cierto año
+    @GetMapping("/xViajesXAnio/{cantViajes}/{anio}")
+    public ResponseEntity<List<Object[]>> getMonopatinesConMasDeXViajesXAnio(@PathVariable int cantViajes, @PathVariable int anio){
+        List<Object[]> reporte = gestorService.getMonopatinesConMasDeXViajesXAnio(cantViajes,anio);
+        return ResponseEntity.ok(reporte);
+    }
+
+    // 3d) Me da la cantidad facturada entre dos meses de cierto año
+    @GetMapping("/getFacturacion/{anio}/{mesInicio}/{mesFin}")
+    public double getFacturacion(@PathVariable Date anio, @PathVariable Date mesInicio, @PathVariable Date mesFin){
+        return gestorService.getFacturacion(anio,mesInicio,mesFin);
+    }
+
+    // 3e) Muestra la cantidad de monopatines en operacion y en mantenimiento
+    @GetMapping("/monopatin/monopatinesSegunEstado")
+    public ResponseEntity<List<Object[]>> getMonopatinesOperativosYMantenimiento(){
+        List<Object[]> reporte = gestorService.getMonopatinesOperativosYMantenimiento();
+        return ResponseEntity.ok(reporte);
+    }
+
+    // 3f) Funciones utilizadas para actualizar tarifas de viaje y de pausa
     @PutMapping("/tarifas/ajustarTarifaViaje/{nuevaTarifa}/{fecha}")
     public ResponseEntity<Void> ajustarTarifaViaje(@PathVariable int nuevaTarifa,@PathVariable Date fecha){
         gestorService.ajustarTarifaViaje(nuevaTarifa,fecha);
@@ -89,17 +109,5 @@ public class GestorController {
         gestorService.ajustarTarifaPausa(nuevaTarifa,fecha);
         return ResponseEntity.status(201).build();
     }
-
-    @PutMapping("/usuarios/cambiarEstadoUsuario/{idUsuario}/{estado}")
-    public ResponseEntity<Void> cambiarEstadoUsuario(@PathVariable int idUsuario, @PathVariable boolean estado){
-        gestorService.cambiarEstadoUsuario(idUsuario,estado);
-        return ResponseEntity.status(201).build();
-    }
-
-    @GetMapping("/getFacturacion/{mesInicio}/{mesFin}")
-    public double getFacturacion(@PathVariable Date mesInicio, @PathVariable Date mesFin){
-        return gestorService.getFacturacion(mesInicio,mesFin);
-    }
-
 
 }
