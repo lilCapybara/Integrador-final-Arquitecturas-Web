@@ -11,12 +11,4 @@ public class Gestor {
     @Id
     private Long idGestor;
 
-    @OneToMany
-    private List<Monopatin> flotaDeMonopatines;
-
-    @OneToMany
-    private List<Parada> listaDeParadas;
-
-    @OneToMany
-    private List<Viaje> listaDeViajes;
 }

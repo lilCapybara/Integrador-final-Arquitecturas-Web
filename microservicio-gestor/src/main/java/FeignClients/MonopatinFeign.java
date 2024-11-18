@@ -1,12 +1,31 @@
 package FeignClients;
 
+import Entities.Monopatin;
 import org.hibernate.annotations.Parameter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@FeignClient(name = "microservicio-monopatin")
 public interface MonopatinFeign {
+
+    @PostMapping("api/microservicioMonopatin/agregarMonopatin")
+    public Monopatin insertarMonopatin(Monopatin monopatin);
+
+    @DeleteMapping("api/microservicioMonopatin/quitarMonopatin/{idMonopatin}")
+    public void borrarMonopatin(@PathVariable("idMonopatin") int idMonopatin);
+
+    @PutMapping("api/microservicioMonopatin/ubicarMonopatinEnParada/{idMonopatin}/{idParada}")
+    public void ubicarMonopatin(@PathVariable("idMonopatin") int idMonopatin,@PathVariable("idParada") int idParada);
+
+    @PutMapping("api/microservicioMonopatin/iniciarMantenimiento/{idMonopatin}")
+    public void iniciarMantenimientoMonopatin(@PathVariable("idMonopatin") int idMonopatin);
+
+    @PutMapping("api/microservicioMonopatin/finalizarMantenimiento/{idMonopatin}/{idParada}")
+    public void finalizarMantenimientoMonopatin(@PathVariable("idMonopatin") int idMonopatin, @PathVariable("idParada") int idParada);
+
+    //Servicios pedidos en la consigna
 
     @GetMapping("api/microservicioMonopatin/monopatinesSegunEstado")
     public List<Object[]> getMonopatinesOperativosYMantenimiento();

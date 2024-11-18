@@ -3,6 +3,7 @@ package Services;
 import Entities.Monopatin;
 import Entities.Parada;
 import FeignClients.MonopatinFeign;
+import FeignClients.ParadaFeign;
 import FeignClients.UsuarioFeign;
 import FeignClients.ViajeFeign;
 import Repositories.*;
@@ -15,56 +16,52 @@ import java.util.stream.Collectors;
 
 @Service
 public class GestorService {
-    @Autowired
-    private GestorMonopatinRepository gestorMonopatinRepository;
-    @Autowired
-    private GestorParadaRepository gestorParadaRepository;
-    @Autowired
-    private GestorMantenimientoRepository gestorMantenimientoRepository;
+
     @Autowired
     private UsuarioFeign usuarioFeign;
     @Autowired
     private MonopatinFeign monopatinFeign;
     @Autowired
     private ViajeFeign viajeFeign;
+    @Autowired
+    private ParadaFeign paradaFeign;
 
 
     @Transactional
     public Monopatin insertarMonopatin(Monopatin monopatin) {
-        return gestorMonopatinRepository.save(monopatin);
+        return monopatinFeign.insertarMonopatin(monopatin);
     }
 
     @Transactional
     public void borrarMonopatin(int idMonopatin) {
-        gestorMonopatinRepository.deleteById(idMonopatin);
+        monopatinFeign.borrarMonopatin(idMonopatin);
     }
 
     @Transactional
     public Parada insertarParada(Parada parada) {
-        return gestorParadaRepository.save(parada);
+        return paradaFeign.insertarParada(parada);
     }
 
     @Transactional
     public void borrarParada(int idParada) {
-        gestorParadaRepository.deleteById(idParada);
+        paradaFeign.borrarParada(idParada);
     }
 
 
     @Transactional
     public void ubicarMonopatin(int idMonopatin, int idParada) {
-        gestorMonopatinRepository.ubicarMonopatin(idMonopatin,idParada);
+        monopatinFeign.ubicarMonopatin(idMonopatin,idParada);
     }
 
     @Transactional
     public void iniciarMantenimientoMonopatin(int idMonopatin) {
-        gestorMantenimientoRepository.iniciarMantenimiento(idMonopatin,"En mantenimiento");
-        gestorMonopatinRepository.enviarATaller(idMonopatin);
+        monopatinFeign.iniciarMantenimientoMonopatin(idMonopatin);
     }
 
     @Transactional
     public void finalizarMantenimientoMonopatin(int idMonopatin, int idParada) {
-        gestorMantenimientoRepository.finalizarMantenimiento(idMonopatin,"En circulacion");
-        gestorMonopatinRepository.ubicarMonopatin(idMonopatin,idParada);
+        monopatinFeign.finalizarMantenimientoMonopatin(idMonopatin,idParada);
+        monopatinFeign.ubicarMonopatin(idMonopatin,idParada);
     }
 
 

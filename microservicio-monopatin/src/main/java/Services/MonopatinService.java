@@ -4,7 +4,6 @@ import Entities.Monopatin;
 import Repositories.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,6 +12,28 @@ public class MonopatinService {
 
     @Autowired
     MonopatinRepository monopatinRepository;
+
+    public Monopatin insertarMonopatin(Monopatin monopatin) {
+        return monopatinRepository.save(monopatin);
+    }
+
+    public void borrarMonopatin(int idMonopatin) {
+        monopatinRepository.deleteById(idMonopatin);
+    }
+
+    public void ubicarMonopatin(int idMonopatin, int idParada) {
+        monopatinRepository.ubicarMonopatin(idMonopatin,idParada);
+    }
+
+    public void iniciarMantenimientoMonopatin(int idMonopatin) {
+        monopatinRepository.iniciarMantenimiento(idMonopatin,"En mantenimiento");
+        monopatinRepository.enviarATaller(idMonopatin);
+    }
+
+    public void finalizarMantenimientoMonopatin(int idMonopatin, int idParada) {
+        monopatinRepository.finalizarMantenimiento(idMonopatin,"En circulacion");
+        monopatinRepository.ubicarMonopatin(idMonopatin,idParada);
+    }
 
     //Servicios pedidos en la consigna
 
@@ -26,7 +47,6 @@ public class MonopatinService {
         return monopatinRepository.getMonopatinesConMasDeXViajesXAnio(cantViajes, anio);
     }
 
-    // 3e) Muestra la cantidad de monopatines en operacion y en mantenimiento
     public List<Object[]>getMonopatinesOperativosYMantenimiento(){
         return monopatinRepository.getMonopatinesOperativosYMantenimiento();
     }
@@ -60,4 +80,5 @@ public class MonopatinService {
     private double calcularDistancia(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
+
 }

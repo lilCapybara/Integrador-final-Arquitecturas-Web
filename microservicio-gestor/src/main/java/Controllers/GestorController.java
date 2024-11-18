@@ -24,25 +24,13 @@ public class GestorController {
         return ResponseEntity.ok(nuevoMonopatin);
     }
 
-    @PostMapping("/monopatin/quitarMonopatin/{idMonopatin}")
+    @DeleteMapping("/monopatin/quitarMonopatin/{idMonopatin}")
     public ResponseEntity<Void> quitarMonopatin(@PathVariable int idMonopatin){
         gestorService.borrarMonopatin(idMonopatin);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/parada/agregarParada")
-    public ResponseEntity<Parada> agregarParada(@RequestBody Parada parada) {
-        Parada nuevaParada = gestorService.insertarParada(parada);
-        return ResponseEntity.ok(nuevaParada);
-    }
-
-    @DeleteMapping("/parada/quitarParada/{idParada}")
-    public ResponseEntity<Void> quitarParada(@PathVariable int idParada) {
-        gestorService.borrarParada(idParada);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/monopatin/ubicarMonopatinEnParada/{idMonopatin}/{idParada}")
+    @PutMapping("/monopatin/ubicarMonopatinEnParada/{idMonopatin}/{idParada}")
     public ResponseEntity<Void> ubicarMonopatinEnParada(@PathVariable int idMonopatin, int idParada){
         gestorService.ubicarMonopatin(idMonopatin,idParada);
         return ResponseEntity.noContent().build();
@@ -59,6 +47,20 @@ public class GestorController {
         gestorService.finalizarMantenimientoMonopatin(idMonopatin, idParada);
         return ResponseEntity.status(201).build();
     }
+
+    @PostMapping("/parada/agregarParada")
+    public ResponseEntity<Parada> agregarParada(@RequestBody Parada parada) {
+        Parada nuevaParada = gestorService.insertarParada(parada);
+        return ResponseEntity.ok(nuevaParada);
+    }
+
+    @DeleteMapping("/parada/quitarParada/{idParada}")
+    public ResponseEntity<Void> quitarParada(@PathVariable int idParada) {
+        gestorService.borrarParada(idParada);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
     //Servicios pedidos en la consigna

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/microservicioParada/Parada")
+@RequestMapping("api/microservicioParada/")
 public class ParadaController {
     @Autowired
     private ParadaService paradaService;
