@@ -18,7 +18,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    private GestorService gestorService;
 
     @GetMapping("/encontrarPorId/{idUsuario}")
     public ResponseEntity<Optional<Usuario>> encontrarPorId(@PathVariable int idUsuario) {

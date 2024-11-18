@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 public class ParadaService {
-    @Autowired
+
     private static ParadaRepository paradaRepository;
 
     public Parada insertarParada(Parada parada) {

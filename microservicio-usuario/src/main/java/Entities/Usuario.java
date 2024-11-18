@@ -31,8 +31,13 @@ public class Usuario {
     @Getter @Setter
     private Date fechaDeAlta;
 
-    @ManyToOne
-    private  Cuenta cuentaMP;
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_cuenta", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "idUsuario"), // Columna que referencia a Usuario
+            inverseJoinColumns = @JoinColumn(name = "idCuenta") // Columna que referencia a Cuenta
+    )
+    private List<Cuenta> cuentasMP;
 
     @Getter @Setter
     private Boolean cuentaActiva;
