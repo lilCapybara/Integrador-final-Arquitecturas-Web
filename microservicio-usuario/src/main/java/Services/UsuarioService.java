@@ -1,11 +1,15 @@
 package Services;
 
+import Entities.Cuenta;
 import Entities.Monopatin;
 import Entities.Usuario;
+import Entities.Viaje;
 import FeignClients.MonopatinFeign;
+import FeignClients.ViajeFeign;
 import Repositories.MonopatinRepository;
 import Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +22,10 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     private MonopatinFeign monopatinFeign;
+
+    private ViajeFeign viajeFeign;
+
+    private CuentaService cuentaService;
 
 
     public Usuario insertarUsuario(Usuario usuario) {
@@ -43,6 +51,10 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario);
     }
 
+    public ResponseEntity<Viaje> cerrarViaje(Viaje viaje) {
+        return viajeFeign.agregarViaje(viaje);
+    }
+
     //Servicios pedidos en la consigna
 
     // 3b) Funcion utilizada para anular cuentas de usuario
@@ -60,6 +72,7 @@ public class UsuarioService {
         int posUsuarioY=usuario.getPosY();
         return monopatinFeign.getMonopatinesCercanos(posUsuarioX,posUsuarioY);
     }
+
 
 
 }

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entities.Usuario;
+import Entities.Viaje;
 import Services.GestorService;
 import Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class UsuarioController {
     public ResponseEntity<Usuario> modificarUsuario(@PathVariable int idUsuario, @RequestBody Usuario usuario){
         Usuario usuarioModificado = usuarioService.modificarUsuario(idUsuario,usuario);
         return ResponseEntity.ok(usuarioModificado);
+    }
+
+    @PutMapping("/cerrarViaje")
+    public ResponseEntity<Void> cerrarViaje(@RequestBody Viaje viaje){
+        usuarioService.cerrarViaje(viaje);
+        return ResponseEntity.ok().build();
     }
 
     //Servicios pedidos en la consigna

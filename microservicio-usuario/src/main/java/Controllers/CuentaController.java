@@ -23,7 +23,9 @@ public class CuentaController {
 
     @GetMapping("/getCuenta/{idCuenta}")
     public ResponseEntity<Cuenta> getCuenta(@PathVariable int idCuenta) {
-        cuentaService.getCuenta(idCuenta);
+        Cuenta cuenta = cuentaService.getCuenta(idCuenta);
+        return ResponseEntity.ok().body(cuenta);
+
     }
 
     @DeleteMapping("/borrarCuenta/{idCuenta}")

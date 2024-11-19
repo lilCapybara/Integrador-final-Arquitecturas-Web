@@ -17,8 +17,8 @@ public class CuentaService {
         return cuentaRepository.save(cuenta);
     }
 
-    public void getCuenta(int idCuenta) {
-        Cuenta cuenta = cuentaRepository.findById(idCuenta).get();
+    public Cuenta getCuenta(int idCuenta) {
+        return cuentaRepository.findById(idCuenta).get();
     }
 
     public void borrarCuenta(int idCuenta) {
