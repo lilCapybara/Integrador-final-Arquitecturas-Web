@@ -1,9 +1,17 @@
 package Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Viaje {
 
@@ -38,19 +46,6 @@ public class Viaje {
 
     private double precioTotal=this.getPrecio();
 
-    public Viaje(Parada paradaOrigen, Parada paradaDestino, int kilometrosRecorridos, int tiempoDeViaje, Date fechaInicio, Date horaInicio, Date fechaFinalizacion, Date horaInicializacion, PrecioViaje precioViaje) {
-        this.paradaOrigen = paradaOrigen;
-        this.paradaDestino = paradaDestino;
-        this.kilometrosRecorridos = kilometrosRecorridos;
-        this.tiempoDeViaje = tiempoDeViaje;
-        this.fechaInicio = fechaInicio;
-        this.horaInicio = horaInicio;
-        this.fechaFinalizacion = fechaFinalizacion;
-        this.horaFinalizacion = horaInicializacion;
-        this.precioViaje=precioViaje;
-    }
-
-    public Viaje() {}
 
     public double getPrecio(){
         double precio = 0;
@@ -62,67 +57,4 @@ public class Viaje {
         return precio;
     }
 
-    public Parada getParadaOrigen() {
-        return paradaOrigen;
-    }
-
-    public void setParadaOrigen(Parada paradaOrigen) {
-        this.paradaOrigen = paradaOrigen;
-    }
-
-    public Parada getParadaDestino() {
-        return paradaDestino;
-    }
-
-    public void setParadaDestino(Parada paradaDestino) {
-        this.paradaDestino = paradaDestino;
-    }
-
-    public int getKilometrosRecorridos() {
-        return kilometrosRecorridos;
-    }
-
-    public void setKilometrosRecorridos(int kilometrosRecorridos) {
-        this.kilometrosRecorridos = kilometrosRecorridos;
-    }
-
-    public int getTiempoDeViaje() {
-        return tiempoDeViaje;
-    }
-
-    public void setTiempoDeViaje(int tiempoDeViaje) {
-        this.tiempoDeViaje = tiempoDeViaje;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(Date horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public Date getFechaFinalizacion() {
-        return fechaFinalizacion;
-    }
-
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
-        this.fechaFinalizacion = fechaFinalizacion;
-    }
-
-    public Date getHoraFinalizacion() {
-        return horaFinalizacion;
-    }
-
-    public void setHoraFinalizacion(Date horaInicializacion) {
-        this.horaFinalizacion = horaInicializacion;
-    }
 }

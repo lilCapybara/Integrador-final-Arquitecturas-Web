@@ -1,16 +1,25 @@
 package Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class PrecioViaje {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPrecio;
 
     @Getter @Setter
@@ -20,15 +29,5 @@ public class PrecioViaje {
     private int tarifaPausaExtensa;
 
     Date fechaAplicacion;
-
-    public PrecioViaje(int precioXKilometro, int tarifaPausaExtensa, Date fechaAplicacion) {
-        this.precioXKilometro = precioXKilometro;
-        this.tarifaPausaExtensa = tarifaPausaExtensa;
-        this.fechaAplicacion = fechaAplicacion;
-    }
-
-    public PrecioViaje() {
-
-    }
 
 }
