@@ -43,8 +43,9 @@ public class SecurityConfig {
                 .securityMatcher("api/**" )    //Todas las URL que empiezan de esta forma van a requerir autenticacion, salvo que tengan permitAll
                 .authorizeHttpRequests( authz -> authz
 
+                        .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers( "api/microservicioUsuario/usuarios/encontrarPorId/**").hasAuthority( AuthorityConstant._GESTOR )
-                        .requestMatchers( "api/microservicioUsuario/usuarios/agregarUsuario").hasAuthority( AuthorityConstant._GESTOR )
                         .requestMatchers( "api/microservicioUsuario/usuarios/quitarUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
                         .requestMatchers( "api/microservicioUsuario/usuarios/modificarUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
                         .requestMatchers( "api/microservicioUsuario/usuarios/cambiarEstadoUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
