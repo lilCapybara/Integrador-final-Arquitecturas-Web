@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/microservicioGestor/gestor")
+@RequestMapping("/api/microservicioGestor/gestor")
 public class GestorController {
 
     @Autowired

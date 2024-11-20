@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/microservicioViaje/")
+@RequestMapping("/api/microservicioViaje")
 public class ViajeController {
     @Autowired
     private ViajeService viajeService;

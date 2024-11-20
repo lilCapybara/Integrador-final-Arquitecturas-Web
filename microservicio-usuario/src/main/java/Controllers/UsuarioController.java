@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/microservicioUsuario/usuarios")
+@RequestMapping("/api/microservicioUsuario/usuarios")
 public class UsuarioController {
 
     @Autowired

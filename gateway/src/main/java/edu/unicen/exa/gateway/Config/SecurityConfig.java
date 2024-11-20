@@ -41,27 +41,27 @@ public class SecurityConfig {
                 .sessionManagement( s -> s.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) );  //Al ser un proyecto REST, no guardamos estados de sesion en la base de datos
         http
                 .securityMatcher("api/**" )    //Todas las URL que empiezan de esta forma van a requerir autenticacion, salvo que tengan permitAll
-                .authorizeHttpRequests( authz -> authz
-
+                .authorizeHttpRequests( authz -> authz.requestMatchers("/api/**").permitAll()
+/**
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-                        .requestMatchers( "api/microservicioUsuario/usuarios/encontrarPorId/**").hasAuthority( AuthorityConstant._GESTOR )
-                        .requestMatchers( "api/microservicioUsuario/usuarios/quitarUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
-                        .requestMatchers( "api/microservicioUsuario/usuarios/modificarUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
-                        .requestMatchers( "api/microservicioUsuario/usuarios/cambiarEstadoUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
-                        .requestMatchers( "api/microservicioUsuario/usuarios/monopatinesCercanos/").hasAuthority( AuthorityConstant._USUARIO )
+                        .requestMatchers( "/api/microservicioUsuario/usuarios/encontrarPorId/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioUsuario/usuarios/quitarUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioUsuario/usuarios/modificarUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioUsuario/usuarios/cambiarEstadoUsuario/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioUsuario/usuarios/monopatinesCercanos/").hasAuthority( AuthorityConstant._USUARIO )
 
-                        .requestMatchers( "api/microservicioMonopatin/monopatinesCercanos/**").hasAuthority( AuthorityConstant._USUARIO )
+                        .requestMatchers( "/api/microservicioMonopatin/monopatinesCercanos/**").hasAuthority( AuthorityConstant._USUARIO )
 
-                        .requestMatchers( "api/microservicioViaje/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioViaje/**").hasAuthority( AuthorityConstant._GESTOR )
 
-                        .requestMatchers( "api/microservicioParada/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioParada/**").hasAuthority( AuthorityConstant._GESTOR )
 
-                        .requestMatchers( "api/microservicioMonopatin/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioMonopatin/**").hasAuthority( AuthorityConstant._GESTOR )
 
-                        .requestMatchers( "api/microservicioGestor/**").hasAuthority( AuthorityConstant._GESTOR )
+                        .requestMatchers( "/api/microservicioGestor/**").permitAll()
 
-                        .anyRequest().authenticated()   //Las demas URLs que no defini estan autenticadas
+                        .anyRequest().authenticated()   //Las demas URLs que no defini estan autenticadas   */
                 )
                 .httpBasic( Customizer.withDefaults() )
                 .addFilterBefore( new JwtFilter( this.tokenProvider ), UsernamePasswordAuthenticationFilter.class );    //Filtro para autenticacion por nombre y contraseña
