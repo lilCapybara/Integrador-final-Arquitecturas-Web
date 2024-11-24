@@ -1,12 +1,9 @@
 package Services;
 
-import Entities.Cuenta;
-import Entities.Monopatin;
 import Entities.Usuario;
 import Entities.Viaje;
 import FeignClients.MonopatinFeign;
 import FeignClients.ViajeFeign;
-import Repositories.MonopatinRepository;
 import Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package FeignClients;
+package edu.unicen.exa.microserviciogestor.FeignClients;
 
 import Entities.Monopatin;
 import org.hibernate.annotations.Parameter;

@@ -1,19 +1,18 @@
-package Services;
+package edu.unicen.exa.microserviciogestor.Services;
 
-import Entities.Gestor;
+import edu.unicen.exa.microserviciogestor.Entities.Gestor;
 import Entities.Monopatin;
 import Entities.Parada;
-import FeignClients.MonopatinFeign;
-import FeignClients.ParadaFeign;
-import FeignClients.UsuarioFeign;
-import FeignClients.ViajeFeign;
-import Repositories.*;
+import edu.unicen.exa.microserviciogestor.FeignClients.MonopatinFeign;
+import edu.unicen.exa.microserviciogestor.FeignClients.ParadaFeign;
+import edu.unicen.exa.microserviciogestor.FeignClients.UsuarioFeign;
+import edu.unicen.exa.microserviciogestor.FeignClients.ViajeFeign;
+import edu.unicen.exa.microserviciogestor.Repositories.GestorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class GestorService {

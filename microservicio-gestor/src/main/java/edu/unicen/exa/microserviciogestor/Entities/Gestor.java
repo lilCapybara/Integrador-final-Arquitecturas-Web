@@ -1,4 +1,4 @@
-package Entities;
+package edu.unicen.exa.microserviciogestor.Entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

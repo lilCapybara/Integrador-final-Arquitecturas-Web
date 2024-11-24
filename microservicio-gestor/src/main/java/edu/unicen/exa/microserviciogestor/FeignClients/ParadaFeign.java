@@ -1,4 +1,4 @@
-package FeignClients;
+package edu.unicen.exa.microserviciogestor.FeignClients;
 
 import Entities.Parada;
 import org.springframework.cloud.openfeign.FeignClient;

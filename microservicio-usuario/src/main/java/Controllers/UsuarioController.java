@@ -2,7 +2,6 @@ package Controllers;
 
 import Entities.Usuario;
 import Entities.Viaje;
-import Services.GestorService;
 import Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

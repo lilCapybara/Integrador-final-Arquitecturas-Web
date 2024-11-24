@@ -1,4 +1,4 @@
-package Controllers;
+package edu.unicen.exa.microserviciogestor.Controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

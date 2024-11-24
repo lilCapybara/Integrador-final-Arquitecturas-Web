@@ -1,4 +1,4 @@
-package FeignClients;
+package edu.unicen.exa.microserviciogestor.FeignClients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
