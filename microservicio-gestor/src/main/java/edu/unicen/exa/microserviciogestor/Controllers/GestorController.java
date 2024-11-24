@@ -1,8 +1,8 @@
 package edu.unicen.exa.microserviciogestor.Controllers;
 
 import edu.unicen.exa.microserviciogestor.Entities.Gestor;
-import Entities.Monopatin;
-import Entities.Parada;
+import edu.unicen.exa.microserviciomonopatin.Entities.Monopatin;
+import edu.unicen.exa.microservicioparada.Entities.Parada;
 import edu.unicen.exa.microserviciogestor.Services.GestorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

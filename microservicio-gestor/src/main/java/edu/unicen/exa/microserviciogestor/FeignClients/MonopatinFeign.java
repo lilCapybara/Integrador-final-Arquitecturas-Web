@@ -1,7 +1,6 @@
 package edu.unicen.exa.microserviciogestor.FeignClients;
 
-import Entities.Monopatin;
-import org.hibernate.annotations.Parameter;
+import edu.unicen.exa.microserviciomonopatin.Entities.Monopatin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

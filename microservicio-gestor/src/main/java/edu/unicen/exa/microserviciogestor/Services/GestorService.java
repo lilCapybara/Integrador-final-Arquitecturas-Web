@@ -1,8 +1,8 @@
 package edu.unicen.exa.microserviciogestor.Services;
 
 import edu.unicen.exa.microserviciogestor.Entities.Gestor;
-import Entities.Monopatin;
-import Entities.Parada;
+import edu.unicen.exa.microserviciomonopatin.Entities.Monopatin;
+import edu.unicen.exa.microservicioparada.Entities.Parada;
 import edu.unicen.exa.microserviciogestor.FeignClients.MonopatinFeign;
 import edu.unicen.exa.microserviciogestor.FeignClients.ParadaFeign;
 import edu.unicen.exa.microserviciogestor.FeignClients.UsuarioFeign;
